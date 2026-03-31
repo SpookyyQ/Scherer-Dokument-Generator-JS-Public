@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Scherer Dokument-Generator</title>
   <meta name="description" content="Scherer Dokument-Generator: Boardkarte, Label und Checkliste schnell erstellen und drucken." />
-  <link rel="stylesheet" href="./styles.css?v=20260401-5" />
+  <link rel="stylesheet" href="./styles.css?v=20260401-6" />
 </head>
 <body>
   <header class="hero">
@@ -140,6 +140,87 @@ cd Scherer-Dokument-Generator-JS
 npm install
 py -3 -m pip install pywin32
 npm run start</code></pre>
+    </section>
+
+    <section class="section changelog" id="changelog">
+      <div class="changelog-head">
+        <h2>Changelog</h2>
+        <a class="btn" href="https://github.com/SpookyyQ/Scherer-Dokument-Generator-JS-Public/blob/main/CHANGELOG.md" target="_blank" rel="noreferrer">Vollständig ansehen</a>
+      </div>
+      <p class="changelog-lead">Die wichtigsten Änderungen der letzten Versionen.</p>
+      <div class="changelog-grid">
+        <article class="changelog-card">
+          <header>
+            <h3>v2.5.2</h3>
+            <span>31.03.2026</span>
+          </header>
+          <ul>
+            <li>GitHub Pages Website in `docs/` eingeführt.</li>
+            <li>Setup-Dokumentation für GitHub Pages ergänzt.</li>
+            <li>README um Website-Bereich erweitert.</li>
+          </ul>
+        </article>
+
+        <article class="changelog-card">
+          <header>
+            <h3>v2.5.1</h3>
+            <span>31.03.2026</span>
+          </header>
+          <ul>
+            <li>Print-Pipeline auf Python-Bridge als offiziellen Pfad fokussiert.</li>
+            <li>Printer-Fallbacks in den Druckfunktionen vereinheitlicht.</li>
+            <li>Dokumentation zum Python-Druckpfad aktualisiert.</li>
+          </ul>
+        </article>
+
+        <article class="changelog-card">
+          <header>
+            <h3>v2.5.0</h3>
+            <span>31.03.2026</span>
+          </header>
+          <ul>
+            <li>Neuer Python Print-Bridge Layer (`printing_bridge.py`).</li>
+            <li>Electron ruft bevorzugt `py -3` und fallback `python` auf.</li>
+            <li>CLI-Ausgaben für robustere Drucklogs hinzugefügt.</li>
+          </ul>
+        </article>
+
+        <article class="changelog-card">
+          <header>
+            <h3>v2.4.14 – v2.4.8</h3>
+            <span>31.03.2026</span>
+          </header>
+          <ul>
+            <li>Job-Options Popup visuell und technisch stabilisiert.</li>
+            <li>Boardkarten-Duplexhandling und Diagnose deutlich verbessert.</li>
+            <li>Mehrere Druckzuverlässigkeits-Fixes für Excel/COM integriert.</li>
+          </ul>
+        </article>
+
+        <article class="changelog-card">
+          <header>
+            <h3>v2.4.7 – v2.4.0</h3>
+            <span>31.03.2026</span>
+          </header>
+          <ul>
+            <li>UI-Refinements für Sidebar, Toggles und Floating Action.</li>
+            <li>Neues Erstellen/Drucken-Auswahl-Popup mit Einzeltoggles.</li>
+            <li>Stabilere Interaktionen bei Dialog- und Layout-States.</li>
+          </ul>
+        </article>
+
+        <article class="changelog-card">
+          <header>
+            <h3>v2.3.1 – v2.0.0</h3>
+            <span>31.03.2026</span>
+          </header>
+          <ul>
+            <li>Grundlage der Electron-Version mit Main/Speed/Settings erstellt.</li>
+            <li>Netzwerkscan, Historie, Dateien und Druckpfad aufgebaut.</li>
+            <li>Frühe UX- und Dark-Mode-Verbesserungen ergänzt.</li>
+          </ul>
+        </article>
+      </div>
     </section>
   </main>
 
