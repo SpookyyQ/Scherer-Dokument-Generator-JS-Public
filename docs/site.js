@@ -3,6 +3,29 @@
   const BRANCH = "main";
   const MAX_CHANGELOG_CARDS = 8;
   const MAX_ITEMS_PER_CARD = 4;
+  const SECTION_TRANSLATIONS = {
+    Added: "Hinzugefügt",
+    Changed: "Geändert",
+    Fixed: "Behoben",
+    Removed: "Entfernt",
+    Deprecated: "Veraltet",
+    Security: "Sicherheit",
+    Docs: "Dokumentation",
+  };
+
+  const PHRASE_TRANSLATIONS = [
+    [/^Initial project website/i, "Initiale Projekt-Website"],
+    [/^README now includes/i, "README enthält jetzt"],
+    [/^Simplified/i, "Vereinfacht"],
+    [/^Replaced/i, "Ersetzt"],
+    [/^Added detailed/i, "Detaillierte"],
+    [/^New Python print bridge CLI/i, "Neue Python-Print-Bridge-CLI"],
+    [/^Printing for/i, "Druck für"],
+    [/^Job-options popup/i, "Job-Options-Popup"],
+    [/^Boardkarte print/i, "Boardkarten-Druck"],
+    [/^Sidebar navigation/i, "Sidebar-Navigation"],
+    [/^Initial Electron rewrite/i, "Initiales Electron-Rewrite"],
+  ];
 
   function formatDate(dateValue) {
     if (!dateValue) return "-";
@@ -96,13 +119,14 @@
 
       const sectionMatch = line.match(/^###\s+(.+)/);
       if (sectionMatch) {
-        currentSection = sectionMatch[1].trim();
+        const rawSection = sectionMatch[1].trim();
+        currentSection = SECTION_TRANSLATIONS[rawSection] || rawSection;
         continue;
       }
 
       const bulletMatch = line.match(/^-\s+(.+)/);
       if (bulletMatch) {
-        const entry = bulletMatch[1].trim();
+        const entry = translateEntry(bulletMatch[1].trim());
         const text = currentSection ? `${currentSection}: ${entry}` : entry;
         currentRelease.items.push(text);
       }
@@ -110,6 +134,21 @@
 
     if (currentRelease) releases.push(currentRelease);
     return releases;
+  }
+
+  function translateEntry(entry) {
+    let result = entry;
+    PHRASE_TRANSLATIONS.forEach(([regex, replacement]) => {
+      result = result.replace(regex, replacement);
+    });
+    result = result
+      .replace(/\bnow\b/gi, "jetzt")
+      .replace(/\bofficial\b/gi, "offiziell")
+      .replace(/\bprint\b/gi, "Druck")
+      .replace(/\bpipeline\b/gi, "Pipeline")
+      .replace(/\bfallback\b/gi, "Fallback")
+      .replace(/\bworkflow\b/gi, "Workflow");
+    return result;
   }
 
   function buildChangelogCard(release) {
