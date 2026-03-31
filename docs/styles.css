@@ -486,7 +486,7 @@ main { padding: 28px clamp(16px, 4vw, 48px) 54px; }
 
 .changelog-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr !important;
   gap: 12px;
 }
 
