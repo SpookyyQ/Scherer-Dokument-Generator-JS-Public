@@ -30,18 +30,18 @@ body::after {
 
 body::before {
   background:
-    radial-gradient(45% 32% at 20% 28%, rgba(255, 36, 36, 0.22), transparent 72%),
-    radial-gradient(40% 30% at 76% 18%, rgba(255, 72, 72, 0.19), transparent 74%),
-    radial-gradient(38% 34% at 66% 80%, rgba(140, 0, 0, 0.18), transparent 75%);
-  animation: auroraDriftA 18s ease-in-out infinite alternate;
+    radial-gradient(46% 34% at 18% 24%, rgba(255, 36, 36, 0.36), transparent 72%),
+    radial-gradient(42% 32% at 78% 16%, rgba(255, 72, 72, 0.3), transparent 74%),
+    radial-gradient(40% 35% at 62% 82%, rgba(140, 0, 0, 0.28), transparent 75%);
+  animation: auroraDriftA 12s ease-in-out infinite alternate;
 }
 
 body::after {
   background:
-    radial-gradient(36% 30% at 12% 74%, rgba(255, 20, 20, 0.14), transparent 74%),
-    radial-gradient(42% 35% at 88% 64%, rgba(200, 12, 12, 0.16), transparent 76%),
-    radial-gradient(28% 26% at 54% 14%, rgba(255, 110, 110, 0.12), transparent 75%);
-  animation: auroraDriftB 24s ease-in-out infinite alternate;
+    radial-gradient(38% 32% at 10% 76%, rgba(255, 20, 20, 0.25), transparent 74%),
+    radial-gradient(44% 36% at 90% 66%, rgba(200, 12, 12, 0.28), transparent 76%),
+    radial-gradient(30% 28% at 54% 12%, rgba(255, 110, 110, 0.22), transparent 75%);
+  animation: auroraDriftB 16s ease-in-out infinite alternate;
 }
 
 .hero {
@@ -152,13 +152,13 @@ code { color: #ff9f9f; }
 }
 
 @keyframes auroraDriftA {
-  0% { transform: translate3d(-1.5%, -1%, 0) rotate(-2deg) scale(1); opacity: 0.9; }
-  50% { transform: translate3d(2%, 1%, 0) rotate(1deg) scale(1.08); opacity: 1; }
-  100% { transform: translate3d(-2%, 2%, 0) rotate(3deg) scale(1.03); opacity: 0.86; }
+  0% { transform: translate3d(-2%, -2%, 0) rotate(-3deg) scale(1.02); opacity: 0.94; }
+  50% { transform: translate3d(3%, 2%, 0) rotate(2deg) scale(1.14); opacity: 1; }
+  100% { transform: translate3d(-3%, 3%, 0) rotate(4deg) scale(1.08); opacity: 0.9; }
 }
 
 @keyframes auroraDriftB {
-  0% { transform: translate3d(2%, -2%, 0) rotate(3deg) scale(1.02); opacity: 0.82; }
-  50% { transform: translate3d(-1%, 2%, 0) rotate(-2deg) scale(1.1); opacity: 0.95; }
-  100% { transform: translate3d(1.5%, -1%, 0) rotate(1deg) scale(1.04); opacity: 0.8; }
+  0% { transform: translate3d(3%, -3%, 0) rotate(4deg) scale(1.05); opacity: 0.88; }
+  50% { transform: translate3d(-2%, 3%, 0) rotate(-3deg) scale(1.14); opacity: 0.98; }
+  100% { transform: translate3d(2.5%, -2%, 0) rotate(2deg) scale(1.08); opacity: 0.86; }
 }
