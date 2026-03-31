@@ -1,0 +1,23 @@
+﻿{
+  "name": "scherer-generator-js",
+  "version": "2.5.2",
+  "description": "Scherer Dokumenten-Generator in Electron",
+  "main": "src/main/index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron ."
+  },
+  "dependencies": {
+    "adm-zip": "^0.5.16",
+    "electron-store": "^10.1.0",
+    "iconv-lite": "^0.7.0",
+    "net-snmp": "^3.26.0",
+    "pdf-lib": "^1.17.1",
+    "ping": "^1.0.0",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "electron": "^37.2.6"
+  }
+}

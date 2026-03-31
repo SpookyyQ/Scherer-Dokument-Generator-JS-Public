@@ -1,0 +1,65 @@
+﻿<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Scherer Dokument-Generator</title>
+  <meta name="description" content="Scherer Dokument-Generator: Boardkarte, Label und Checkliste schnell erstellen und drucken." />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <nav class="topbar">
+      <img src="./media/logo.png" alt="Scherer" class="logo" />
+      <a class="btn ghost" href="https://github.com/SpookyyQ/Scherer-Dokument-Generator-JS" target="_blank" rel="noreferrer">GitHub</a>
+    </nav>
+    <div class="hero-content">
+      <p class="kicker">Scherer Service Tool</p>
+      <h1>Dokumente erstellen. Direkt drucken. Weniger Klicks.</h1>
+      <p class="lead">Der Scherer Dokument-Generator automatisiert Label, Boardkarte und Checkliste inklusive Druck-Workflow für Techniker im Feld.</p>
+      <div class="cta-row">
+        <a class="btn primary" href="https://github.com/SpookyyQ/Scherer-Dokument-Generator-JS" target="_blank" rel="noreferrer">Projekt öffnen</a>
+        <a class="btn" href="#install">Installation</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <h2>Highlights</h2>
+      <div class="grid cards">
+        <article class="card"><h3>Autofill aus Lagerdaten</h3><p>Modell, IDNR und Seriennummer werden aus <code>Lager.txt</code> erkannt und übernommen.</p></article>
+        <article class="card"><h3>Speed-Modus</h3><p>Schnelle Verarbeitung über die letzten 5 Stellen der Seriennummer, optional mit Queue.</p></article>
+        <article class="card"><h3>Drucken wie im PySide-Tool</h3><p>Der Druckpfad läuft jetzt über Python-Bridge und nutzt die bewährte PySide-Drucklogik.</p></article>
+      </div>
+    </section>
+
+    <section class="section shots">
+      <h2>Einblick</h2>
+      <div class="grid gallery">
+        <figure><img src="./media/home.png" alt="Hauptbildschirm" /><figcaption>Hauptbildschirm</figcaption></figure>
+        <figure><img src="./media/speed-mode.png" alt="Speed-Modus" /><figcaption>Speed-Modus</figcaption></figure>
+        <figure><img src="./media/settings.png" alt="Einstellungen" /><figcaption>Einstellungen</figcaption></figure>
+      </div>
+    </section>
+
+    <section id="install" class="section install">
+      <h2>Installation für Techniker</h2>
+      <ol>
+        <li>Repository klonen und Abhängigkeiten installieren.</li>
+        <li>Python 3 und <code>pywin32</code> installieren.</li>
+        <li>Windows-Drucker einrichten (Kyocera für Boardkarte/Checkliste).</li>
+      </ol>
+      <pre><code>git clone https://github.com/SpookyyQ/Scherer-Dokument-Generator-JS.git
+cd Scherer-Dokument-Generator-JS
+npm install
+py -3 -m pip install pywin32
+npm run start</code></pre>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© Scherer Dokument-Generator</p>
+  </footer>
+</body>
+</html>

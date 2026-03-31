@@ -1,0 +1,5 @@
+﻿'IDNR','ModellBezeichnung','Standort','Standort_II','Serien_Nr','InstallDatum','Betreiber','MatchcodeBTR2','Bezeichnung','IDNR_Hauptgeraet','InBetriebename_beschreibung_v','InBetriebename_Datum_v','Gar_Ende_Verlaengerung_v','Stellplatz_Nr','SPBezeichnung','Rechnungsempfnger','MatchcodeRE','Techniker','Name','Gebiet','Versionsnummer','Notizen'
+19198,'MZ3501ci','','','1FV5X31690',,1,'DEMO LAGER','Kyocera TASKalfa MZ3501ci',19198,'Install.-Datum',,,0,'',1,'DEMO LAGER',0,'','','','Public sample data'
+19001,'MZ2501ci','','','1RV4X12345',,1,'DEMO LAGER','Kyocera TASKalfa MZ2501ci',19001,'Install.-Datum',,,0,'',1,'DEMO LAGER',0,'','','','Public sample data'
+19555,'M6235cidn','','','RC23324883',,1,'DEMO LAGER','Kyocera ECOSYS M6235cidn',19555,'Install.-Datum',,,0,'',1,'DEMO LAGER',0,'','','','Public sample data'
+18012,'P2040dn','','','VNZ4X56789',,1,'DEMO LAGER','Kyocera ECOSYS P2040dn',18012,'Install.-Datum',,,0,'',1,'DEMO LAGER',0,'','','','Public sample data'

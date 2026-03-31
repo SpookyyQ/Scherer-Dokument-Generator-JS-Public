@@ -1,0 +1,470 @@
+﻿<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scherer Dokumenten-Generator (JS)</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <canvas id="bg-canvas"></canvas>
+  <div id="bg-uiverse" aria-hidden="true"></div>
+  <div id="busy-overlay" class="hidden">
+    <div class="busy-card">
+      <div class="loader-wrapper" aria-hidden="true">
+        <svg class="loader-svg" viewBox="25 25 50 50">
+          <circle class="loader-circle" r="20" cy="50" cx="50"></circle>
+        </svg>
+      </div>
+      <div>
+        <div id="busy-title">Bitte warten</div>
+        <div id="busy-message">Dokumente werden erstellt ...</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-host"></div>
+  <dialog id="device-detail-dialog" class="device-dialog">
+    <div class="device-dialog-head">
+      <h3>Netzwerkgerät</h3>
+      <button id="device-dialog-close" type="button">Schließen</button>
+    </div>
+    <div class="device-dialog-grid">
+      <span>Gerätename</span><strong id="device-dialog-name">-</strong>
+      <span>Modell</span><strong id="device-dialog-model">-</strong>
+      <span>IDNR</span><strong id="device-dialog-idnr">-</strong>
+      <span>Seriennummer</span><strong id="device-dialog-serial">-</strong>
+      <span>MAC</span><strong id="device-dialog-mac">-</strong>
+      <span>Host/IP</span><strong id="device-dialog-host">-</strong>
+      <span>Port</span><strong id="device-dialog-port">-</strong>
+      <span>Treiber</span><strong id="device-dialog-driver">-</strong>
+      <span>Status</span><strong id="device-dialog-status">-</strong>
+    </div>
+    <label for="device-dialog-tech">Techniker</label>
+    <input id="device-dialog-tech" type="text" placeholder="z.B. JB" />
+    <p id="device-dialog-feedback" class="device-dialog-feedback hidden"></p>
+    <div class="device-dialog-actions">
+      <button id="device-dialog-apply" class="primary" type="button">DOKUMENTE ERSTELLEN</button>
+    </div>
+  </dialog>
+  <dialog id="job-options-dialog" class="device-dialog">
+    <div class="device-dialog-head">
+      <h3>Erstellen / Drucken</h3>
+      <button id="job-options-close" type="button">Schließen</button>
+    </div>
+    <div class="device-dialog-grid job-options-grid">
+      <label class="job-check-row">
+        <span class="job-check-label">Erstellen: Label</span>
+        <input class="job-cb" type="checkbox" id="opt-create-label" checked />
+      </label>
+      <label class="job-check-row">
+        <span class="job-check-label">Erstellen: Boardkarte</span>
+        <input class="job-cb" type="checkbox" id="opt-create-board" checked />
+      </label>
+      <label class="job-check-row">
+        <span class="job-check-label">Erstellen: Checkliste</span>
+        <input class="job-cb" type="checkbox" id="opt-create-checklist" checked />
+      </label>
+      <label class="job-check-row">
+        <span class="job-check-label">Drucken: Label</span>
+        <input class="job-cb" type="checkbox" id="opt-print-label" checked />
+      </label>
+      <label class="job-check-row">
+        <span class="job-check-label">Drucken: Boardkarte</span>
+        <input class="job-cb" type="checkbox" id="opt-print-board" checked />
+      </label>
+      <label class="job-check-row">
+        <span class="job-check-label">Drucken: Checkliste</span>
+        <input class="job-cb" type="checkbox" id="opt-print-checklist" checked />
+      </label>
+    </div>
+    <p id="job-options-note" class="device-dialog-feedback hidden"></p>
+    <div class="device-dialog-actions">
+      <button id="job-options-apply" class="primary" type="button">Übernehmen</button>
+    </div>
+  </dialog>
+
+  <button id="run-main-fab" class="primary create-btn floating-create hidden" type="button">
+    <span class="create-btn-label">DOKUMENTE ERSTELLEN</span>
+    <span class="create-btn-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" focusable="false">
+        <path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7l-5-5zm1 7V3.5L17.5 9H15zM9 13h6v2H9v-2zm0 4h6v2H9v-2zm0-8h4v2H9V9z"></path>
+      </svg>
+    </span>
+  </button>
+
+  <div class="app-root">
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <img id="logo" class="logo" alt="Scherer" />
+        <h1 class="side-title">Scherer Dokumenten-Generator</h1>
+        <p class="side-sub">Boardkarte | Label | Checkliste</p>
+      </div>
+
+      <nav class="nav">
+        <button class="nav-btn active" data-page="home">Hauptbildschirm</button>
+        <button class="nav-btn" data-page="speed" id="nav-speed">Speed-Modus</button>
+        <button class="nav-btn" data-page="files">Dateien</button>
+        <button class="nav-btn" data-page="history">Job-Historie</button>
+      </nav>
+
+      <div class="sidebar-spacer"></div>
+      <div id="sidebar-chart" class="sidebar-chart hidden">
+        <div class="sidebar-chart-title">Dokument-Status</div>
+        <div id="sidebar-chart-meta">0 Jobs</div>
+        <div class="sidebar-bars">
+          <div id="bar-success" class="bar success" style="width:0%"></div>
+          <div id="bar-error" class="bar error" style="width:0%"></div>
+        </div>
+      </div>
+      <button class="nav-btn settings-btn" data-page="settings">
+        <span>Einstellungen</span>
+        <img class="gear-icon" src="../../assets/settings.png" alt="Einstellungen" />
+      </button>
+    </aside>
+
+    <main class="main">
+      <section class="page active" id="page-home">
+        <div class="card hero">
+          <h2>Device Document Center</h2>
+          <p>Dokumente schneller, klarer, moderner</p>
+          <div class="hero-loader loading" aria-hidden="true">
+            <svg width="64px" height="48px" viewBox="0 0 64 48">
+              <polyline points="0.157 23.954, 14 23.954, 21.843 48, 43 0, 50 24, 64 24" id="back"></polyline>
+              <polyline points="0.157 23.954, 14 23.954, 21.843 48, 43 0, 50 24, 64 24" id="front"></polyline>
+            </svg>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>GERÄTEDATEN EINGEBEN</h3>
+          <div class="grid-2">
+            <label>MODELL</label>
+            <input id="modell" list="modell-options" placeholder="z.B. TASKalfa 3554ci" />
+            <datalist id="modell-options"></datalist>
+
+            <label>IDNR</label>
+            <input id="idnr" maxlength="5" placeholder="z.B. 19999" />
+
+            <label>SERIENNUMMER</label>
+            <input id="seriennr" placeholder="z.B. V6R4X12345" />
+
+            <label>TECHNIKER</label>
+            <input id="techniker" placeholder="z.B. JB" />
+
+            <label>MAC-ADRESSE</label>
+            <input id="mac" placeholder="z.B. 00:17:c8:ad:3a:d9" />
+
+            <label>K-NUMMER</label>
+            <div class="k-toggle">
+              <button id="k-no" class="toggle-btn active">Nein</button>
+              <button id="k-yes" class="toggle-btn">Ja</button>
+            </div>
+
+            <label id="k-number-label" class="hidden">K-NUMMER WERT</label>
+            <input id="k-number" class="hidden" placeholder="z.B. K-12345" />
+          </div>
+
+          <div class="row gap">
+            <label class="switch-row">
+              <span class="ui-switch">
+                <input type="checkbox" id="auto-print" />
+                <span class="slider"></span>
+              </span>
+              <span>Dokumente nach dem Erstellen automatisch drucken</span>
+            </label>
+          </div>
+          <div class="row gap">
+            <button id="open-job-options-main" type="button">Erstellen/Drucken auswählen</button>
+          </div>
+
+          <div class="printer-frame">
+            <h4>Ziel-Drucker</h4>
+            <p id="printer-scan-status" class="printer-scan-status">Druckersuche noch nicht gestartet.</p>
+            <div id="printer-skeleton" class="printer-skeleton hidden" aria-hidden="true">
+              <div class="skeleton-row">
+                <div class="skeleton-pill label"></div>
+                <div class="skeleton-pill field"></div>
+                <div class="skeleton-pill badge"></div>
+              </div>
+              <div class="skeleton-row">
+                <div class="skeleton-pill label"></div>
+                <div class="skeleton-pill field"></div>
+                <div class="skeleton-pill badge"></div>
+              </div>
+              <div class="skeleton-row">
+                <div class="skeleton-pill label"></div>
+                <div class="skeleton-pill field"></div>
+                <div class="skeleton-pill badge"></div>
+              </div>
+            </div>
+            <div class="printer-grid">
+              <label>Label</label>
+              <select id="printer-label"></select>
+              <span id="printer-label-state" class="badge unknown">● Status unbekannt</span>
+
+              <label>Boardkarte</label>
+              <select id="printer-board"></select>
+              <span id="printer-board-state" class="badge unknown">● Status unbekannt</span>
+
+              <label>Checkliste</label>
+              <select id="printer-checklist"></select>
+              <span id="printer-checklist-state" class="badge unknown">● Status unbekannt</span>
+            </div>
+            <div class="row right">
+              <button id="refresh-printers">Neu laden</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="row between">
+            <h3>GERÄTELISTE</h3>
+            <button id="scan-devices">Aktualisieren</button>
+          </div>
+          <p>Wählen Sie aus der Liste der verfügbaren Geräte das gewünschte Gerät zur Erstellung der Dokumente.</p>
+          <div class="row gap">
+            <label>Netzwerkbereich</label>
+            <input id="device-cidr" placeholder="z.B. 192.168.1.0/24,192.168.22.0/24" />
+          </div>
+          <label class="switch-row">
+            <span class="ui-switch">
+              <input type="checkbox" id="device-only-printers" checked />
+              <span class="slider"></span>
+            </span>
+            <span>Nur Drucker anzeigen</span>
+          </label>
+          <p id="device-scan-status">Noch kein Netzwerkscan ausgeführt.</p>
+
+          <div class="table-wrap">
+            <div id="device-skeleton" class="device-skeleton hidden" aria-hidden="true">
+              <div class="device-skeleton-row">
+                <div class="device-skeleton-cell"></div>
+                <div class="device-skeleton-cell"></div>
+                <div class="device-skeleton-cell"></div>
+                <div class="device-skeleton-cell"></div>
+              </div>
+              <div class="device-skeleton-row">
+                <div class="device-skeleton-cell"></div>
+                <div class="device-skeleton-cell"></div>
+                <div class="device-skeleton-cell"></div>
+                <div class="device-skeleton-cell"></div>
+              </div>
+              <div class="device-skeleton-row">
+                <div class="device-skeleton-cell"></div>
+                <div class="device-skeleton-cell"></div>
+                <div class="device-skeleton-cell"></div>
+                <div class="device-skeleton-cell"></div>
+              </div>
+            </div>
+            <table id="device-table">
+              <thead>
+                <tr>
+                  <th>Modell</th>
+                  <th>IDNR</th>
+                  <th>Seriennummer</th>
+                  <th>MAC-Adresse</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>ERKANNTE VORLAGEN</h3>
+          <p id="tpl-board">Boardkarte: -</p>
+          <p id="tpl-checklist">Checkliste: -</p>
+        </div>
+
+        <div class="card row between wrap">
+          <p id="output-label">Output-Ordner: -</p>
+          <button id="open-output">Output-Ordner öffnen</button>
+        </div>
+
+        <div class="card">
+          <pre id="status-main" class="status"></pre>
+        </div>
+      </section>
+
+      <section class="page" id="page-speed">
+        <div class="card">
+          <h2>SPEED-MODUS</h2>
+          <p>Nur letzte 5 Stellen der Seriennummer eingeben. Rest läuft automatisch.</p>
+
+          <label>Letzte 5 der Seriennummer</label>
+          <input id="speed-suffix" maxlength="5" placeholder="z.B. X1234" />
+
+          <label class="switch-row">
+            <span class="ui-switch">
+              <input type="checkbox" id="speed-queue-toggle" />
+              <span class="slider"></span>
+            </span>
+            <span>Queue-Modus (bis zu 3 Seriennummern)</span>
+          </label>
+
+          <div id="speed-queue-box" class="hidden">
+            <label>Seriennummer 1 (letzte 5)</label>
+            <input id="speed-q1" maxlength="5" placeholder="z.B. X1234" />
+            <label>Seriennummer 2 (letzte 5)</label>
+            <input id="speed-q2" maxlength="5" placeholder="z.B. X1234" />
+            <label>Seriennummer 3 (letzte 5)</label>
+            <input id="speed-q3" maxlength="5" placeholder="z.B. X1234" />
+          </div>
+
+          <h3>Treffer-Vorschau</h3>
+          <p id="speed-preview-state">Noch keine vollständige Eingabe (5 Zeichen).</p>
+          <p id="speed-preview-model">Modell: -</p>
+          <p id="speed-preview-idnr">IDNR: -</p>
+
+          <label>Techniker-Kürzel (für diesen Auftrag)</label>
+          <input id="speed-tech" placeholder="z.B. JB" />
+
+          <label class="switch-row">
+            <span class="ui-switch">
+              <input type="checkbox" id="speed-print" />
+              <span class="slider"></span>
+            </span>
+            <span>Dokumente nach dem Erstellen automatisch drucken</span>
+          </label>
+          <div class="row gap">
+            <button id="open-job-options-speed" type="button">Erstellen/Drucken auswählen</button>
+          </div>
+
+          <button id="run-speed" class="primary create-btn">
+            <span class="create-btn-label">SPEED: DOKUMENTE ERSTELLEN</span>
+            <span class="create-btn-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7l-5-5zm1 7V3.5L17.5 9H15zM9 13h6v2H9v-2zm0 4h6v2H9v-2zm0-8h4v2H9V9z"></path>
+              </svg>
+            </span>
+          </button>
+          <pre id="status-speed" class="status"></pre>
+        </div>
+      </section>
+
+      <section class="page" id="page-files">
+        <div class="card">
+          <h3>Dateien im Output</h3>
+          <p id="files-count">0 Datei(en)</p>
+          <div class="row gap">
+            <button id="files-refresh">Aktualisieren</button>
+            <button id="files-open-output">Output-Ordner öffnen</button>
+          </div>
+          <ul id="files-list" class="file-list"></ul>
+        </div>
+      </section>
+
+      <section class="page" id="page-history">
+        <div class="card">
+          <h3>Job-Historie</h3>
+          <p id="history-count">0 Einträge</p>
+          <div class="row gap">
+            <button id="history-refresh">Aktualisieren</button>
+            <button id="history-clear">Historie leeren</button>
+          </div>
+          <div class="table-wrap">
+            <table id="history-table">
+              <thead>
+                <tr>
+                  <th>Zeit</th>
+                  <th>Modell</th>
+                  <th>IDNR</th>
+                  <th>Seriennummer</th>
+                  <th>Techniker</th>
+                  <th>Quelle</th>
+                  <th>Druck</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="page-settings">
+        <div class="card">
+          <h3>Einstellungen</h3>
+
+          <label>Sprache</label>
+          <select id="language">
+            <option value="de">Deutsch</option>
+            <option value="en">English</option>
+          </select>
+
+          <label>Theme</label>
+          <select id="theme">
+            <option value="dark">Dark</option>
+            <option value="light">Light</option>
+          </select>
+
+          <label class="switch-row">
+            <span class="ui-switch">
+              <input type="checkbox" id="speed-visible" />
+              <span class="slider"></span>
+            </span>
+            <span>Speed-Modus anzeigen</span>
+          </label>
+
+          <label class="switch-row">
+            <span class="ui-switch">
+              <input type="checkbox" id="sidebar-chart-toggle" />
+              <span class="slider"></span>
+            </span>
+            <span>Sidebar-Chart anzeigen</span>
+          </label>
+
+          <label>Akzentfarbe</label>
+          <select id="accent">
+            <option value="#ff3b30">Scherer Rot</option>
+            <option value="#e53935">Signal Rot</option>
+            <option value="#ff6b4a">Koralle</option>
+            <option value="#ff8c2f">Orange</option>
+            <option value="#00bcd4">Cyan</option>
+            <option value="#7c4dff">Violett</option>
+          </select>
+
+          <label class="switch-row">
+            <span class="ui-switch">
+              <input type="checkbox" id="bg-toggle" />
+              <span class="slider"></span>
+            </span>
+            <span>Animierter Hintergrund</span>
+          </label>
+
+          <label>Hintergrund-Stil</label>
+          <select id="bg-style">
+            <option value="current">Aktuell</option>
+            <option value="sweet_dolphin_36">Sweet Dolphin 36</option>
+            <option value="clever_puma_91">Clever Puma 91</option>
+          </select>
+
+          <label>Output-Ordner</label>
+          <p id="output-settings-label">-</p>
+          <button id="choose-output">Output-Ordner ändern</button>
+        </div>
+
+        <div class="card">
+          <div class="row between">
+            <h3>System-Status</h3>
+            <button id="refresh-dashboard">Status aktualisieren</button>
+          </div>
+          <p id="dash-source">Lagerquelle: -</p>
+          <p id="dash-machines">Geladene Maschinen: -</p>
+          <p id="dash-models">Modell-Vorschläge: -</p>
+          <p id="dash-board">Boardkarten-Vorlagen: -</p>
+          <p id="dash-check">Checklisten-Vorlagen: -</p>
+          <p id="dash-labels">Label-Vorlagen: -</p>
+          <p id="dash-printers">Windows-Drucker: -</p>
+          <p id="dash-network">Erkannte Netzwerkgeräte: -</p>
+          <p id="dash-output">Dateien im Output: -</p>
+          <p id="dash-history">Historie-Einträge: -</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>

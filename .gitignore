@@ -1,0 +1,31 @@
+node_modules/
+output/
+*.log
+_tmp_*.xml
+_tmp*.xml
+_try_*.txt
+_uiverse_*
+_runjs_*
+
+# Local/sensitive data
+Lager.local.txt
+*.local.txt
+*.env
+.env*
+
+# Temp/editor
+*.tmp
+*.bak
+*~
+.~lock*
+
+# Potentially sensitive binary/cert artifacts
+*.pem
+*.p12
+*.key
+*.crt
+*.bin
+*.img
+*.fw
+*.stdapp
+*.zip
