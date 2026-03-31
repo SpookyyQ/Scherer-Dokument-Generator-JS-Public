@@ -76,7 +76,6 @@
 
       if (downloadBtn) {
         downloadBtn.href = release.html_url || `https://github.com/${REPO}/releases`;
-        downloadBtn.textContent = "Zugriff anfordern";
       }
     } catch (_error) {
       if (packageVersion) {
@@ -88,7 +87,6 @@
       }
       if (downloadBtn) {
         downloadBtn.href = `https://github.com/${REPO}/releases`;
-        downloadBtn.textContent = "Zugriff anfordern";
       }
     }
   }
@@ -247,6 +245,9 @@
   }
 
   document.addEventListener("DOMContentLoaded", () => {
+    const cta = document.getElementById("cta-download");
+    if (cta) cta.textContent = "Zugriff anfordern";
+
     initReveal();
     loadPackageVersion().then((packageVersion) => {
       loadLatestRelease(packageVersion);
