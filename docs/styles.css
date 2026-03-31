@@ -11,13 +11,49 @@
 body {
   margin: 0;
   font-family: "Segoe UI", "Inter", system-ui, sans-serif;
-  background: radial-gradient(1200px 420px at 70% -10%, rgba(255,42,42,.18), transparent 70%), var(--bg);
+  background: var(--bg);
   color: var(--text);
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: -20% -10%;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(54px) saturate(120%);
+  transform-origin: 50% 50%;
+}
+
+body::before {
+  background:
+    radial-gradient(45% 32% at 20% 28%, rgba(255, 36, 36, 0.22), transparent 72%),
+    radial-gradient(40% 30% at 76% 18%, rgba(255, 72, 72, 0.19), transparent 74%),
+    radial-gradient(38% 34% at 66% 80%, rgba(140, 0, 0, 0.18), transparent 75%);
+  animation: auroraDriftA 18s ease-in-out infinite alternate;
+}
+
+body::after {
+  background:
+    radial-gradient(36% 30% at 12% 74%, rgba(255, 20, 20, 0.14), transparent 74%),
+    radial-gradient(42% 35% at 88% 64%, rgba(200, 12, 12, 0.16), transparent 76%),
+    radial-gradient(28% 26% at 54% 14%, rgba(255, 110, 110, 0.12), transparent 75%);
+  animation: auroraDriftB 24s ease-in-out infinite alternate;
 }
 
 .hero {
   padding: 22px clamp(16px, 4vw, 48px) 48px;
   border-bottom: 1px solid var(--line);
+}
+
+.hero,
+main,
+.footer {
+  position: relative;
+  z-index: 1;
 }
 .topbar {
   display: flex;
@@ -113,4 +149,16 @@ code { color: #ff9f9f; }
   border-top: 1px solid var(--line);
   padding: 16px clamp(16px, 4vw, 48px);
   color: var(--muted);
+}
+
+@keyframes auroraDriftA {
+  0% { transform: translate3d(-1.5%, -1%, 0) rotate(-2deg) scale(1); opacity: 0.9; }
+  50% { transform: translate3d(2%, 1%, 0) rotate(1deg) scale(1.08); opacity: 1; }
+  100% { transform: translate3d(-2%, 2%, 0) rotate(3deg) scale(1.03); opacity: 0.86; }
+}
+
+@keyframes auroraDriftB {
+  0% { transform: translate3d(2%, -2%, 0) rotate(3deg) scale(1.02); opacity: 0.82; }
+  50% { transform: translate3d(-1%, 2%, 0) rotate(-2deg) scale(1.1); opacity: 0.95; }
+  100% { transform: translate3d(1.5%, -1%, 0) rotate(1deg) scale(1.04); opacity: 0.8; }
 }
