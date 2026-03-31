@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Scherer Dokument-Generator</title>
   <meta name="description" content="Scherer Dokument-Generator: Boardkarte, Label und Checkliste schnell erstellen und drucken." />
-  <link rel="stylesheet" href="./styles.css?v=20260401-7" />
+  <link rel="stylesheet" href="./styles.css?v=20260401-8" />
+  <script src="./site.js?v=20260401-1" defer></script>
 </head>
 <body>
   <header class="hero">
@@ -17,10 +18,23 @@
       <p class="kicker">Scherer Service Tool</p>
       <h1>Dokumente erstellen. Direkt drucken. Weniger Klicks.</h1>
       <p class="lead">Der Scherer Dokument-Generator automatisiert Label, Boardkarte und Checkliste inklusive Druck-Workflow für Techniker im Feld.</p>
+      <div class="hero-badges" aria-label="Wichtige Features">
+        <span class="hero-badge" id="pkg-version-badge">Version wird geladen ...</span>
+        <span class="hero-badge">Queue-Modus</span>
+        <span class="hero-badge">Python Print-Bridge</span>
+        <span class="hero-badge">Netzwerk-Scan</span>
+        <span class="hero-badge">Job-Historie</span>
+      </div>
       <div class="cta-row">
-        <a class="btn primary" href="https://github.com/SpookyyQ/Scherer-Dokument-Generator-JS-Public/releases" target="_blank" rel="noreferrer">Zugriff anfordern</a>
+        <a class="btn primary" id="cta-download" href="https://github.com/SpookyyQ/Scherer-Dokument-Generator-JS-Public/releases" target="_blank" rel="noreferrer">Download</a>
+        <a class="btn" href="#changelog">Changelog</a>
         <a class="btn" href="#anleitung">Anleitung</a>
       </div>
+      <aside class="release-status" id="release-status" aria-live="polite">
+        <strong>Latest Release</strong>
+        <span id="latest-release-version">Wird geladen ...</span>
+        <small id="latest-release-date">-</small>
+      </aside>
     </div>
   </header>
 
@@ -140,83 +154,36 @@
       </ol>
     </section>
 
+    <section class="section support" id="support">
+      <h2>Kontakt & Support</h2>
+      <div class="support-grid">
+        <a class="support-card" href="https://github.com/SpookyyQ/Scherer-Dokument-Generator-JS-Public/issues/new?labels=bug&title=%5BBug%5D%20" target="_blank" rel="noreferrer">
+          <h3>Bug melden</h3>
+          <p>Fehler mit kurzer Beschreibung, Reproduktionsschritten und Screenshot einreichen.</p>
+        </a>
+        <a class="support-card" href="https://github.com/SpookyyQ/Scherer-Dokument-Generator-JS-Public/issues/new?labels=enhancement&title=%5BFeature%5D%20" target="_blank" rel="noreferrer">
+          <h3>Feature wünschen</h3>
+          <p>Neue Idee einreichen und kurz erklären, welchen Nutzen sie im Ablauf bringt.</p>
+        </a>
+        <a class="support-card" href="https://github.com/SpookyyQ/Scherer-Dokument-Generator-JS-Public#readme" target="_blank" rel="noreferrer">
+          <h3>Dokumentation</h3>
+          <p>README, Setup-Hinweise und technische Details zum Projekt direkt öffnen.</p>
+        </a>
+      </div>
+    </section>
+
     <section class="section changelog" id="changelog">
       <div class="changelog-head">
         <h2>Changelog</h2>
         <a class="btn" href="https://github.com/SpookyyQ/Scherer-Dokument-Generator-JS-Public/blob/main/CHANGELOG.md" target="_blank" rel="noreferrer">Vollständig ansehen</a>
       </div>
-      <p class="changelog-lead">Die wichtigsten Änderungen der letzten Versionen.</p>
-      <div class="changelog-grid">
+      <p class="changelog-lead">Automatisch aus dem Repository geladen.</p>
+      <div class="changelog-grid" id="changelog-grid">
         <article class="changelog-card">
           <header>
-            <h3>v2.5.2</h3>
-            <span>31.03.2026</span>
+            <h3>Wird geladen ...</h3>
+            <span>—</span>
           </header>
-          <ul>
-            <li>GitHub Pages Website in `docs/` eingeführt.</li>
-            <li>Setup-Dokumentation für GitHub Pages ergänzt.</li>
-            <li>README um Website-Bereich erweitert.</li>
-          </ul>
-        </article>
-
-        <article class="changelog-card">
-          <header>
-            <h3>v2.5.1</h3>
-            <span>31.03.2026</span>
-          </header>
-          <ul>
-            <li>Print-Pipeline auf Python-Bridge als offiziellen Pfad fokussiert.</li>
-            <li>Printer-Fallbacks in den Druckfunktionen vereinheitlicht.</li>
-            <li>Dokumentation zum Python-Druckpfad aktualisiert.</li>
-          </ul>
-        </article>
-
-        <article class="changelog-card">
-          <header>
-            <h3>v2.5.0</h3>
-            <span>31.03.2026</span>
-          </header>
-          <ul>
-            <li>Neuer Python Print-Bridge Layer (`printing_bridge.py`).</li>
-            <li>Electron ruft bevorzugt `py -3` und fallback `python` auf.</li>
-            <li>CLI-Ausgaben für robustere Drucklogs hinzugefügt.</li>
-          </ul>
-        </article>
-
-        <article class="changelog-card">
-          <header>
-            <h3>v2.4.14 – v2.4.8</h3>
-            <span>31.03.2026</span>
-          </header>
-          <ul>
-            <li>Job-Options Popup visuell und technisch stabilisiert.</li>
-            <li>Boardkarten-Duplexhandling und Diagnose deutlich verbessert.</li>
-            <li>Mehrere Druckzuverlässigkeits-Fixes für Excel/COM integriert.</li>
-          </ul>
-        </article>
-
-        <article class="changelog-card">
-          <header>
-            <h3>v2.4.7 – v2.4.0</h3>
-            <span>31.03.2026</span>
-          </header>
-          <ul>
-            <li>UI-Refinements für Sidebar, Toggles und Floating Action.</li>
-            <li>Neues Erstellen/Drucken-Auswahl-Popup mit Einzeltoggles.</li>
-            <li>Stabilere Interaktionen bei Dialog- und Layout-States.</li>
-          </ul>
-        </article>
-
-        <article class="changelog-card">
-          <header>
-            <h3>v2.3.1 – v2.0.0</h3>
-            <span>31.03.2026</span>
-          </header>
-          <ul>
-            <li>Grundlage der Electron-Version mit Main/Speed/Settings erstellt.</li>
-            <li>Netzwerkscan, Historie, Dateien und Druckpfad aufgebaut.</li>
-            <li>Frühe UX- und Dark-Mode-Verbesserungen ergänzt.</li>
-          </ul>
         </article>
       </div>
     </section>
