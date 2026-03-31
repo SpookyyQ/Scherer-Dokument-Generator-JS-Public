@@ -92,6 +92,83 @@ main { padding: 28px clamp(16px, 4vw, 48px) 54px; }
 .section { margin-top: 18px; }
 .section h2 { font-size: clamp(21px, 3vw, 34px); margin: 0 0 14px; }
 
+.code-stats {
+  text-align: center;
+  padding: 22px 16px 20px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+
+.code-kicker {
+  margin: 0 0 8px;
+  color: #c8c8c8;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-size: .78rem;
+  font-weight: 700;
+}
+
+.code-stats h2 {
+  margin: 0;
+}
+
+.accent-number {
+  color: #ff5b5b;
+}
+
+.code-note {
+  margin: 10px 0 0;
+  color: var(--muted);
+}
+
+.lang-strip {
+  margin-top: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.lang-pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 180px;
+  justify-content: space-between;
+  padding: 10px 14px 10px 28px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #101010;
+}
+
+.lang-pill::before {
+  content: "";
+  position: absolute;
+  left: 11px;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  transform: translateY(-50%);
+}
+
+.lang-pill.js::before { background: #f7df1e; }
+.lang-pill.json::before { background: #80deea; }
+.lang-pill.css::before { background: #42a5f5; }
+.lang-pill.html::before { background: #ff8a65; }
+
+.lang-name {
+  color: #ececec;
+  font-weight: 600;
+}
+
+.lang-lines {
+  color: #d0d0d0;
+  font-variant-numeric: tabular-nums;
+}
+
 .grid { display: grid; gap: 14px; }
 .cards { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
 .card {
@@ -331,5 +408,10 @@ code { color: #ff9f9f; }
 
   .ui-copy {
     padding: 14px 14px 16px;
+  }
+
+  .lang-pill {
+    min-width: 150px;
+    width: calc(50% - 8px);
   }
 }
