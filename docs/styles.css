@@ -268,6 +268,81 @@ main { padding: 28px clamp(16px, 4vw, 48px) 54px; }
   margin-bottom: 0;
 }
 
+.features h2 {
+  margin-bottom: 12px;
+}
+
+.feature-stack {
+  display: grid;
+  gap: 12px;
+}
+
+.feature-panel {
+  background: #e7e8ec;
+  color: #111827;
+  border: 1px solid #d2d6db;
+  border-radius: 0;
+  padding: 26px 24px;
+}
+
+.feature-panel h3 {
+  margin: 0;
+  font-size: clamp(2rem, 4.2vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+.feature-intro {
+  margin: 16px 0 0;
+  max-width: 42ch;
+  color: #374151;
+  font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+  line-height: 1.45;
+}
+
+.feature-list {
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+
+.feature-list li {
+  position: relative;
+  padding-left: 24px;
+  color: #111827;
+  font-size: clamp(1rem, 1.85vw, 1.05rem);
+  line-height: 1.45;
+}
+
+.feature-list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #10b981;
+  font-weight: 700;
+}
+
+.feature-cta {
+  display: inline-flex;
+  margin-top: 22px;
+  padding: 10px 22px;
+  border-radius: 999px;
+  text-decoration: none;
+  background: #101113;
+  color: #f4f4f5;
+  border: 1px solid #101113;
+  font-weight: 700;
+  transition: transform 170ms ease, box-shadow 170ms ease;
+}
+
+.feature-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(16, 17, 19, 0.25);
+}
+
 .install {
   margin-top: 28px;
 }
@@ -413,5 +488,9 @@ code { color: #ff9f9f; }
   .lang-pill {
     min-width: 150px;
     width: calc(50% - 8px);
+  }
+
+  .feature-panel {
+    padding: 22px 18px;
   }
 }
