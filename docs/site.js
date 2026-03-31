@@ -58,10 +58,10 @@
     } catch (_error) {
       if (packageVersion) {
         versionNode.textContent = `v${packageVersion}`;
-        dateNode.textContent = "Release-Datum nicht verfügbar";
+        dateNode.textContent = "-";
       } else {
         versionNode.textContent = "nicht verfügbar";
-        dateNode.textContent = "Release-Status konnte nicht geladen werden";
+        dateNode.textContent = "-";
       }
       if (downloadBtn) {
         downloadBtn.href = `https://github.com/${REPO}/releases`;
