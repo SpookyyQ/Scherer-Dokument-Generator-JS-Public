@@ -1,4 +1,4 @@
-﻿:root {
+:root {
   --bg: #070707;
   --panel: #121212;
   --text: #f3f3f3;
@@ -95,13 +95,34 @@ main { padding: 28px clamp(16px, 4vw, 48px) 54px; }
 .grid { display: grid; gap: 14px; }
 .cards { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
 .card {
+  position: relative;
+  overflow: hidden;
   background: linear-gradient(180deg, rgba(255,42,42,.08), rgba(255,42,42,.03));
   border: 1px solid var(--line);
   border-radius: 14px;
   padding: 16px;
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+.card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, #ff5858, #ff2020);
+  transform: scaleY(0.35);
+  transform-origin: top;
+  transition: transform 240ms ease;
 }
 .card h3 { margin: 0 0 8px; }
 .card p { margin: 0; color: var(--muted); }
+.card:hover {
+  transform: translateY(-5px);
+  border-color: #5e2b2b;
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.35), 0 0 0 4px rgba(255, 58, 58, 0.14);
+}
+.card:hover::before { transform: scaleY(1); }
 
 .gallery { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
 figure {
@@ -136,6 +157,11 @@ code { color: #ff9f9f; }
   color: var(--text);
   text-decoration: none;
   background: #151515;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+.btn:hover {
+  transform: translateY(-2px);
+  border-color: #5e2b2b;
 }
 .btn.primary {
   background: linear-gradient(180deg, #ff3a3a, #e21f1f);
