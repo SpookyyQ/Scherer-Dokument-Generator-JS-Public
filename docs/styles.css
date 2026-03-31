@@ -158,6 +158,7 @@ main { padding: 28px clamp(16px, 4vw, 48px) 54px; }
 .lang-pill.json::before { background: #80deea; }
 .lang-pill.css::before { background: #42a5f5; }
 .lang-pill.html::before { background: #ff8a65; }
+.lang-pill.python::before { background: #3776ab; }
 
 .lang-name {
   color: #ececec;
