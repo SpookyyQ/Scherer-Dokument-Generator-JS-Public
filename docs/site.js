@@ -58,7 +58,7 @@
     } catch (_error) {
       if (packageVersion) {
         versionNode.textContent = `v${packageVersion}`;
-        dateNode.textContent = "Quelle: package.json";
+        dateNode.textContent = "Release-Datum nicht verfügbar";
       } else {
         versionNode.textContent = "nicht verfügbar";
         dateNode.textContent = "Release-Status konnte nicht geladen werden";
