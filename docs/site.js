@@ -76,7 +76,7 @@
 
       if (downloadBtn) {
         downloadBtn.href = release.html_url || `https://github.com/${REPO}/releases`;
-        downloadBtn.textContent = `Download ${tag}`;
+        downloadBtn.textContent = "Zugriff anfordern";
       }
     } catch (_error) {
       if (packageVersion) {
@@ -88,7 +88,7 @@
       }
       if (downloadBtn) {
         downloadBtn.href = `https://github.com/${REPO}/releases`;
-        downloadBtn.textContent = packageVersion ? `Download v${packageVersion}` : "Download";
+        downloadBtn.textContent = "Zugriff anfordern";
       }
     }
   }
