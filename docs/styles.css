@@ -158,8 +158,10 @@ main { padding: 28px clamp(16px, 4vw, 48px) 54px; }
 }
 
 .ui-media img {
-  width: 100%;
+  width: auto;
+  max-width: 100%;
   height: auto;
+  max-height: 320px;
   object-fit: unset;
   display: block;
   border-radius: 10px;
@@ -314,7 +316,7 @@ code { color: #ff9f9f; }
   }
 
   .ui-media img {
-    height: auto;
+    max-height: 240px;
   }
 
   .ui-copy {
