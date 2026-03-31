@@ -541,13 +541,26 @@ main { padding: 28px clamp(16px, 4vw, 48px) 54px; }
 
 .support-card {
   display: block;
+  position: relative;
+  overflow: hidden;
   text-decoration: none;
   color: inherit;
-  background: linear-gradient(180deg, rgba(255,42,42,.07), rgba(255,42,42,.02));
-  border: 1px solid var(--line);
+  background: linear-gradient(160deg, rgba(255, 42, 42, 0.15), rgba(255, 42, 42, 0.04) 55%, rgba(255, 255, 255, 0.02));
+  border: 1px solid #493131;
   border-radius: 12px;
-  padding: 14px;
-  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+  padding: 14px 14px 46px;
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.support-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #ff4a4a, #ff7b7b);
+  opacity: .7;
 }
 
 .support-card h3 {
@@ -557,14 +570,42 @@ main { padding: 28px clamp(16px, 4vw, 48px) 54px; }
 
 .support-card p {
   margin: 8px 0 0;
-  color: var(--muted);
+  color: #d6d6d6;
   line-height: 1.45;
 }
 
 .support-card:hover {
-  transform: translateY(-2px);
-  border-color: #5e2b2b;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.22), 0 0 0 2px rgba(255, 58, 58, 0.08);
+  transform: translateY(-3px);
+  border-color: #c04747;
+  background: linear-gradient(160deg, rgba(255, 42, 42, 0.22), rgba(255, 42, 42, 0.08) 55%, rgba(255, 255, 255, 0.04));
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.24), 0 0 0 3px rgba(255, 70, 70, 0.18);
+}
+
+.support-cta {
+  position: absolute;
+  left: 14px;
+  bottom: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: .84rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(180deg, #ff4343, #da1f1f);
+  border: 1px solid #ff6a6a;
+  box-shadow: 0 6px 16px rgba(255, 60, 60, 0.35);
+}
+
+.support-cta::after {
+  content: "→";
+  font-size: .95rem;
+  line-height: 1;
+}
+
+.support-card:hover .support-cta {
+  transform: translateX(2px);
 }
 
 .reveal {
